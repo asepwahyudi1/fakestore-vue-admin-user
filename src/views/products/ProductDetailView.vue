@@ -24,10 +24,12 @@ const { updateSeo } = useSeo({})
 
 const seoData = computed(() => {
   if (!product.value) return {}
-  
+
   return {
     title: product.value.title,
-    description: product.value.description || `${product.value.title} - ${t('price')}: ${formatCurrency(product.value.price)}`,
+    description:
+      product.value.description ||
+      `${product.value.title} - ${t('price')}: ${formatCurrency(product.value.price)}`,
     image: product.value.image,
     keywords: `${product.value.title}, ${product.value.category}, ${t('products')}`,
     type: 'product',
@@ -178,7 +180,9 @@ const addToCart = async (productItem) => {
             <router-link
               :to="{ name: ROUTE_NAMES.PRODUCT_DETAIL, params: { id: similarProduct.id } }"
             >
-              <div class="relative overflow-hidden rounded-t-lg bg-gray-100 dark:bg-gray-700 aspect-square">
+              <div
+                class="relative overflow-hidden rounded-t-lg bg-gray-100 dark:bg-gray-700 aspect-square"
+              >
                 <BaseImage
                   :src="similarProduct.image"
                   :alt="similarProduct.title"
@@ -202,15 +206,10 @@ const addToCart = async (productItem) => {
                     {{ similarProduct.category }}
                   </span>
                 </div>
-                <div class="flex gap-2">
-                  <BaseButton class="flex-1" @click.prevent="addToCart(similarProduct)">
-                    <Icon icon="mdi:cart-plus" class="mr-2" :width="18" :height="18" />
-                    {{ t('addToCart') }}
-                  </BaseButton>
-                  <BaseButton variant="outline" class="flex-1">
-                    {{ t('viewDetails') }}
-                  </BaseButton>
-                </div>
+                <BaseButton class="w-full" @click.prevent="addToCart(similarProduct)">
+                  <Icon icon="mdi:cart-plus" class="mr-2" :width="18" :height="18" />
+                  {{ t('addToCart') }}
+                </BaseButton>
               </div>
             </router-link>
           </BaseCard>
