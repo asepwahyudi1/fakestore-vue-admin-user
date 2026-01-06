@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed, watch, onUnmounted } from 'vue'
+import { computed, watch, onUnmounted } from 'vue'
 
 const props = defineProps({
   modelValue: {

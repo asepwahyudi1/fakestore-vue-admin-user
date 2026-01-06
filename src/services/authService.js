@@ -33,6 +33,9 @@ export const authService = {
     removeFromStorage(STORAGE_KEYS.AUTH_TOKEN)
     removeFromStorage(STORAGE_KEYS.USER_DATA)
     removeFromStorage(STORAGE_KEYS.USERNAME)
+    removeFromStorage(STORAGE_KEYS.CART)
+    removeFromStorage(STORAGE_KEYS.THEME)
+    removeFromStorage(STORAGE_KEYS.LOCALE)
   },
 
   getCurrentUser() {
