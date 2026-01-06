@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="toastStore.toasts.length"
+    data-cy="toast-container"
     class="w-[calc(100%-24px)] fixed top-0 lg:right-0 lg:top-0 lg:w-[450px] mt-4 lg:mx-10 z-1000 p-3 h-[200px]"
   >
     <div
@@ -29,6 +30,7 @@
         </div>
 
         <button
+          data-cy="toast-close-button"
           class="flex items-center justify-center p-1 dark:bg-gray-700 bg-gray-300 rounded-full dark:text-white text-gray-900"
           @click="toastStore.removeToast(toast.id)"
         >

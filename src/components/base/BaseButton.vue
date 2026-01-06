@@ -22,6 +22,10 @@ defineProps({
     type: String,
     default: 'button',
   },
+  dataCy: {
+    type: String,
+    default: '',
+  },
 })
 
 defineEmits(['click'])
@@ -31,6 +35,7 @@ defineEmits(['click'])
   <button
     :type="type"
     :disabled="disabled || loading"
+    :data-cy="dataCy"
     :class="[
       'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-800',
       {

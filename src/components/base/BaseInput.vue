@@ -28,6 +28,14 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  dataCy: {
+    type: String,
+    default: '',
+  },
+  name: {
+    type: String,
+    default: '',
+  },
 })
 
 defineEmits(['update:modelValue', 'blur', 'focus'])
@@ -47,6 +55,8 @@ defineEmits(['update:modelValue', 'blur', 'focus'])
       :value="modelValue"
       :placeholder="placeholder"
       :disabled="disabled"
+      :name="name"
+      :data-cy="dataCy"
       :class="[
         'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-colors bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100',
         {

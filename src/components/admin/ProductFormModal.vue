@@ -129,9 +129,11 @@ const handleSubmit = async () => {
     @update:model-value="emit('update:modelValue', $event)"
     @close="closeDialog"
   >
-    <form @submit.prevent="handleSubmit" class="space-y-4">
+    <form @submit.prevent="handleSubmit" class="space-y-4" data-cy="product-form">
       <BaseInput
         v-model="v$.title.$model"
+        name="title"
+        :dataCy="'product-title-input'"
         :label="t('title')"
         :placeholder="t('enterProductTitle')"
         :error="v$.title.$error ? v$.title.$errors[0]?.$message : ''"
@@ -140,6 +142,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.price.$model"
+        name="price"
+        :dataCy="'product-price-input'"
         type="number"
         step="0.01"
         :label="t('price')"
@@ -150,6 +154,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.description.$model"
+        name="description"
+        :dataCy="'product-description-input'"
         :label="t('description')"
         :placeholder="t('enterProductDescription')"
         :error="v$.description.$error ? v$.description.$errors[0]?.$message : ''"
@@ -158,6 +164,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.category.$model"
+        name="category"
+        :dataCy="'product-category-input'"
         :label="t('category')"
         :placeholder="t('enterProductCategory')"
         :error="v$.category.$error ? v$.category.$errors[0]?.$message : ''"
@@ -166,6 +174,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.image.$model"
+        name="image"
+        :dataCy="'product-image-input'"
         type="url"
         :label="t('image')"
         :placeholder="t('enterImageUrl')"
@@ -174,10 +184,21 @@ const handleSubmit = async () => {
       />
 
       <div class="flex justify-end gap-3 pt-4">
-        <BaseButton type="button" variant="outline" @click="closeDialog" :disabled="isSubmitting">
+        <BaseButton
+          type="button"
+          variant="outline"
+          data-cy="product-form-cancel-button"
+          @click="closeDialog"
+          :disabled="isSubmitting"
+        >
           {{ t('cancel') }}
         </BaseButton>
-        <BaseButton type="submit" :loading="isSubmitting" :disabled="isSubmitting">
+        <BaseButton
+          type="submit"
+          data-cy="product-form-submit-button"
+          :loading="isSubmitting"
+          :disabled="isSubmitting"
+        >
           {{ isEditMode ? t('update') : t('create') }}
         </BaseButton>
       </div>

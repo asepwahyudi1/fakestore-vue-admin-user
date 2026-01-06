@@ -172,7 +172,7 @@ onMounted(() => {
   <div>
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('manageProducts') }}</h1>
-      <BaseButton @click="openAddDialog">
+      <BaseButton @click="openAddDialog" data-cy="add-product-button">
         <Icon icon="mdi:plus" class="mr-2" :width="18" :height="18" />
         {{ t('addProduct') }}
       </BaseButton>
@@ -246,6 +246,7 @@ onMounted(() => {
             <tr
               v-for="product in paginatedProducts"
               :key="product.id"
+              data-cy="product-row"
               class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               <td class="px-4 py-3">
@@ -270,10 +271,20 @@ onMounted(() => {
               </td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-2">
-                  <BaseButton variant="outline" size="sm" @click="openEditDialog(product)">
+                  <BaseButton
+                    variant="outline"
+                    size="sm"
+                    :dataCy="'product-edit-button'"
+                    @click="openEditDialog(product)"
+                  >
                     <Icon icon="mdi:pencil" :width="16" :height="16" />
                   </BaseButton>
-                  <BaseButton variant="danger" size="sm" @click="handleDelete(product)">
+                  <BaseButton
+                    variant="danger"
+                    size="sm"
+                    :dataCy="'product-delete-button'"
+                    @click="handleDelete(product)"
+                  >
                     <Icon icon="mdi:delete" :width="16" :height="16" />
                   </BaseButton>
                 </div>

@@ -33,15 +33,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ t('adminPanel') }}</h1>
+  <div data-cy="admin-dashboard">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6" data-cy="admin-dashboard-title">{{ t('adminPanel') }}</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <BaseCard class="hover:shadow-lg transition-shadow">
+      <BaseCard class="hover:shadow-lg transition-shadow" data-cy="total-products-card">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-lg font-semibold mb-2 text-gray-600 dark:text-gray-400">{{ t('totalProducts') }}</h3>
-            <p v-if="isLoading" class="text-3xl font-bold text-blue-600 dark:text-blue-400">-</p>
-            <p v-else class="text-3xl font-bold text-blue-600 dark:text-blue-400">
+            <p v-if="isLoading" class="text-3xl font-bold text-blue-600 dark:text-blue-400" data-cy="total-products-value">-</p>
+            <p v-else class="text-3xl font-bold text-blue-600 dark:text-blue-400" data-cy="total-products-value">
               {{ totalProducts }}
             </p>
           </div>
@@ -52,12 +52,12 @@ onMounted(() => {
           </div>
         </div>
       </BaseCard>
-      <BaseCard class="hover:shadow-lg transition-shadow">
+      <BaseCard class="hover:shadow-lg transition-shadow" data-cy="total-users-card">
         <div class="flex items-center justify-between">
           <div>
             <h3 class="text-lg font-semibold mb-2 text-gray-600 dark:text-gray-400">{{ t('totalUsers') }}</h3>
-            <p v-if="isLoading" class="text-3xl font-bold text-green-600 dark:text-green-400">-</p>
-            <p v-else class="text-3xl font-bold text-green-600 dark:text-green-400">{{ totalUsers }}</p>
+            <p v-if="isLoading" class="text-3xl font-bold text-green-600 dark:text-green-400" data-cy="total-users-value">-</p>
+            <p v-else class="text-3xl font-bold text-green-600 dark:text-green-400" data-cy="total-users-value">{{ totalUsers }}</p>
           </div>
           <div
             class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center"

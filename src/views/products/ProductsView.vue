@@ -108,7 +108,7 @@ onMounted(async () => {
   <div>
     <div class="mb-8 space-y-4">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('products') }}</h1>
+        <h1 data-cy="products-title" class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('products') }}</h1>
         <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <div class="relative flex-1 sm:flex-initial sm:w-64">
             <Icon
@@ -166,6 +166,7 @@ onMounted(async () => {
       <BaseCard
         v-for="product in filteredProducts"
         :key="product.id"
+        :dataCy="'product-card'"
         class="group cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
       >
         <router-link :to="{ name: ROUTE_NAMES.PRODUCT_DETAIL, params: { id: product.id } }">
@@ -196,6 +197,7 @@ onMounted(async () => {
             <BaseButton
               class="w-full"
               size="sm"
+              :dataCy="'add-to-cart-button'"
               @click.prevent="addToCart(product)"
             >
               <Icon icon="mdi:cart-plus" class="mr-2" :width="18" :height="18" />

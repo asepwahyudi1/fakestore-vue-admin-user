@@ -44,10 +44,14 @@ const handleSubmit = async () => {
     return
   }
 
-  await login(formData.value.username, formData.value.password)
-  toast.success(t('loginSuccess'))
-  const redirect = router.currentRoute.value.query.redirect
-  router.push(redirect ? redirect : { name: ROUTE_NAMES.HOME })
+  try {
+    await login(formData.value.username, formData.value.password)
+    toast.success(t('loginSuccess'))
+    const redirect = router.currentRoute.value.query.redirect
+    router.push(redirect ? redirect : { name: ROUTE_NAMES.HOME })
+  } catch (error) {
+    console.error('Login failed:', error)
+  }
 }
 </script>
 

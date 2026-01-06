@@ -128,9 +128,11 @@ const handleSubmit = async () => {
     @update:model-value="emit('update:modelValue', $event)"
     @close="closeDialog"
   >
-    <form @submit.prevent="handleSubmit" class="space-y-4">
+    <form @submit.prevent="handleSubmit" class="space-y-4" data-cy="user-form">
       <BaseInput
         v-model="v$.username.$model"
+        name="username"
+        :dataCy="'user-username-input'"
         :label="t('username')"
         :placeholder="t('enterUsername')"
         :error="v$.username.$error ? v$.username.$errors[0]?.$message : ''"
@@ -139,6 +141,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.email.$model"
+        name="email"
+        :dataCy="'user-email-input'"
         type="email"
         :label="t('email')"
         :placeholder="t('enterEmail')"
@@ -148,6 +152,8 @@ const handleSubmit = async () => {
 
       <BaseInput
         v-model="v$.password.$model"
+        name="password"
+        :dataCy="'user-password-input'"
         type="password"
         :label="isEditMode ? t('newPassword') : t('password')"
         :placeholder="t('enterPassword')"
@@ -159,10 +165,21 @@ const handleSubmit = async () => {
       </p>
 
       <div class="flex justify-end gap-3 pt-4">
-        <BaseButton type="button" variant="outline" @click="closeDialog" :disabled="isSubmitting">
+        <BaseButton
+          type="button"
+          variant="outline"
+          :dataCy="'user-form-cancel-button'"
+          @click="closeDialog"
+          :disabled="isSubmitting"
+        >
           {{ t('cancel') }}
         </BaseButton>
-        <BaseButton type="submit" :loading="isSubmitting" :disabled="isSubmitting">
+        <BaseButton
+          type="submit"
+          :dataCy="'user-form-submit-button'"
+          :loading="isSubmitting"
+          :disabled="isSubmitting"
+        >
           {{ isEditMode ? t('update') : t('create') }}
         </BaseButton>
       </div>

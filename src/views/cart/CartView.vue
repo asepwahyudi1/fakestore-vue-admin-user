@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import { BaseCard, BaseButton, BaseImage } from '@/components/base'
-import UiConfirm from '@/components/ui/UiConfirm.vue'
 import { useCartStore } from '@/stores/cart'
 import { useI18n, useSeo } from '@/composables'
 import { useToast } from '@/composables/useToast'
@@ -9,6 +8,7 @@ import { useAuth } from '@/composables/useAuth'
 import { cartService } from '@/services/cartService'
 import { productService } from '@/services/productService'
 import { formatCurrency, getErrorMessage } from '@/utils'
+import UiConfirm from '@/components/ui/UiConfirm.vue'
 
 const cartStore = useCartStore()
 const { t } = useI18n()
@@ -100,10 +100,12 @@ const cancelCheckout = () => {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ t('shoppingCart') }}</h1>
+  <div data-cy="cart-view">
+    <h1 data-cy="cart-title" class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+      {{ t('shoppingCart') }}
+    </h1>
 
-    <div v-if="cartStore.isEmpty" class="text-center py-12">
+    <div v-if="cartStore.isEmpty" class="text-center py-12" data-cy="empty-cart">
       <Icon icon="mdi:cart-off" :width="64" :height="64" class="mx-auto text-gray-400 mb-4" />
       <p class="text-gray-600 dark:text-gray-400 text-lg mb-4">{{ t('yourCartIsEmpty') }}</p>
       <router-link
@@ -117,7 +119,12 @@ const cancelCheckout = () => {
 
     <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 space-y-4">
-        <BaseCard v-for="item in cartStore.items" :key="item.id" class="flex items-center gap-4">
+        <BaseCard
+          v-for="item in cartStore.items"
+          :key="item.id"
+          :dataCy="'cart-item'"
+          class="flex items-center gap-4"
+        >
           <BaseImage :src="item.image" :alt="item.title" :lazy="true" class="w-24 h-24" />
           <div class="flex-1">
             <h3 class="font-semibold">{{ item.title }}</h3>
@@ -125,13 +132,15 @@ const cancelCheckout = () => {
           </div>
           <div class="flex items-center gap-2">
             <button
+              data-cy="decrease-quantity-button"
               @click="updateQuantity(item.id, item.quantity - 1)"
               class="px-3 py-1 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600"
             >
               <Icon icon="mdi:minus" :width="20" :height="20" />
             </button>
-            <span class="px-4">{{ item.quantity }}</span>
+            <span data-cy="item-quantity" class="px-4">{{ item.quantity }}</span>
             <button
+              data-cy="increase-quantity-button"
               @click="updateQuantity(item.id, item.quantity + 1)"
               class="px-3 py-1 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600"
             >
@@ -139,6 +148,7 @@ const cancelCheckout = () => {
             </button>
           </div>
           <button
+            data-cy="remove-item-button"
             @click="removeItem(item.id)"
             class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-2"
             :title="t('removeItem')"
@@ -163,6 +173,7 @@ const cancelCheckout = () => {
           </div>
           <BaseButton
             class="w-full"
+            :dataCy="'checkout-button'"
             :loading="isProcessing"
             :disabled="isProcessing"
             @click="handleCheckout"

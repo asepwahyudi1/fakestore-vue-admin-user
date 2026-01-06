@@ -6,6 +6,7 @@
       @click.self="closeDialog"
     >
       <div
+        data-cy="confirm-dialog"
         class="w-[600px] min-w-[400px] h-max flex flex-col gap-10 dark:bg-gray-800 bg-gray-100 rounded-2xl p-8 relative transition-all duration-300"
       >
         <button
@@ -31,6 +32,7 @@
 
         <div class="w-full flex items-center justify-end gap-4">
           <button
+            data-cy="confirm-dialog-cancel-button"
             @click="onCancel"
             :disabled="loading"
             class="px-6 py-2 rounded-xl dark:bg-gray-700 bg-gray-300 dark:text-white text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -38,6 +40,7 @@
             {{ cancelText }}
           </button>
           <button
+            data-cy="confirm-dialog-confirm-button"
             @click="onConfirm"
             :disabled="loading"
             class="px-6 py-2 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"

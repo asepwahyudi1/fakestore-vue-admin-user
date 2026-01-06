@@ -188,6 +188,7 @@ onMounted(async () => {
       <BaseCard
         v-for="product in filteredProducts"
         :key="product.id"
+        data-cy="product-card"
         class="group cursor-pointer hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
       >
         <router-link :to="{ name: ROUTE_NAMES.PRODUCT_DETAIL, params: { id: product.id } }">
@@ -217,7 +218,12 @@ onMounted(async () => {
                 {{ product.category }}
               </span>
             </div>
-            <BaseButton class="w-full" size="sm" @click.prevent="addToCart(product)">
+            <BaseButton
+              class="w-full"
+              size="sm"
+              data-cy="add-to-cart-button"
+              @click.prevent="addToCart(product)"
+            >
               <Icon icon="mdi:cart-plus" class="mr-2" :width="18" :height="18" />
               {{ t('addToCart') }}
             </BaseButton>
