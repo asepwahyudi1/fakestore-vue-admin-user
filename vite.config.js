@@ -17,6 +17,10 @@ export default defineConfig({
       'Cache-Control': 'public, max-age=31536000, immutable',
     },
   },
+  preview: {
+    port: 4173,
+    strictPort: true,
+  },
   build: {
     rollupOptions: {
       output: {
