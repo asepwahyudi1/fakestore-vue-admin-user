@@ -174,12 +174,16 @@ src/
 ├── components/       # Reusable components
 │   ├── admin/       # Admin-specific components
 │   ├── base/        # Base UI components
+│   ├── products/    # Product-related components
 │   └── ui/          # UI components (Toast, Confirm, etc)
 ├── composables/     # Vue composables
+├── constants/       # Application constants
 ├── layouts/         # Layout components
+├── plugins/         # Vue plugins (Axios, Vuelidate)
 ├── router/          # Vue Router configuration
 ├── services/        # API services
 ├── stores/          # Pinia stores
+├── styles/          # Global styles
 ├── views/           # Page components
 ├── __tests__/       # Unit tests
 │   ├── mocks/      # Mock data
