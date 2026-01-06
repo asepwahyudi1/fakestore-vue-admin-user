@@ -32,7 +32,7 @@ describe('Products Page', () => {
     cy.wait('@getProducts', { timeout: 10000 })
     cy.wait('@getCategories', { timeout: 10000 })
     cy.get('[data-cy="products-title"]', { timeout: 10000 }).should('be.visible')
-    cy.get('[data-cy="product-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
+    cy.get('[data-cy="products-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
   })
 
   it('should filter products by category', () => {
@@ -51,7 +51,7 @@ describe('Products Page', () => {
 
     cy.get('select').select("men's clothing")
     cy.wait('@getProductsByCategory', { timeout: 10000 })
-    cy.get('[data-cy="product-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
+    cy.get('[data-cy="products-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
   })
 
   it('should search products', () => {
@@ -59,8 +59,8 @@ describe('Products Page', () => {
     cy.wait('@getCategories', { timeout: 10000 })
     cy.get('input[type="text"]', { timeout: 10000 }).should('be.visible')
     cy.get('input[type="text"]').type('Backpack')
-    cy.get('[data-cy="product-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
-    cy.get('[data-cy="product-card"]').first().should('contain', 'Backpack')
+    cy.get('[data-cy="products-card"]', { timeout: 10000 }).should('have.length.at.least', 1)
+    cy.get('[data-cy="products-card"]').first().should('contain', 'Backpack')
   })
 
   it('should navigate to product detail page', () => {
@@ -73,7 +73,7 @@ describe('Products Page', () => {
       },
       { fixture: 'product.json' },
     ).as('getProduct')
-    cy.get('[data-cy="product-card"]', { timeout: 10000 }).first().click()
+    cy.get('[data-cy="products-card"]', { timeout: 10000 }).first().click()
     cy.wait('@getProduct', { timeout: 10000 })
     cy.url().should('include', '/products/1')
     cy.contains('Fjallraven - Foldsack No. 1 Backpack').should('be.visible')

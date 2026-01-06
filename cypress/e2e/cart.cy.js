@@ -74,8 +74,11 @@ describe('Cart', () => {
       { fixture: 'cart.json' },
     ).as('updateCart')
 
-    cy.get('[data-cy="product-card"]', { timeout: 10000 }).first().should('be.visible')
-    cy.get('[data-cy="product-card"]').first().find('[data-cy="add-to-cart-button"]').click()
+    cy.get('[data-cy="products-card"]', { timeout: 10000 }).first().should('be.visible')
+    cy.get('[data-cy="products-card"]')
+      .first()
+      .find('[data-cy="products-add-to-cart-button"]')
+      .click()
     cy.wait('@updateCart', { timeout: 10000 })
     cy.contains('added to cart', { timeout: 5000 }).should('be.visible')
   })
