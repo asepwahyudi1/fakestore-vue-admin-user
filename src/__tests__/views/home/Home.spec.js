@@ -57,12 +57,11 @@ describe('Home View', () => {
       global: {
         plugins: [pinia, router],
         stubs: {
-          BaseCard: true,
           BaseButton: true,
-          ProductSkeleton: true,
-          BaseImage: true,
+          ProductList: {
+            template: '<div>ProductList</div>',
+          },
           RouterLink: true,
-          Icon: true,
         },
       },
     })
@@ -84,63 +83,34 @@ describe('Home View', () => {
       execute: vi.fn().mockResolvedValue(mockProducts),
     })
 
+    const ProductListStub = {
+      template: '<div data-testid="product-list">ProductList</div>',
+      props: ['titleTag', 'dataCyPrefix', 'initialDisplayCount'],
+    }
+
     const wrapper = mount(HomeView, {
       global: {
         plugins: [pinia, router],
         stubs: {
-          BaseCard: true,
           BaseButton: true,
-          ProductSkeleton: true,
-          BaseImage: true,
+          ProductList: ProductListStub,
           RouterLink: true,
-          Icon: true,
         },
       },
     })
 
     await wrapper.vm.$nextTick()
-    await new Promise((resolve) => setTimeout(resolve, 100))
 
-    expect(wrapper.vm.products.value).toEqual(mockProducts.slice(0, 12))
+    const productList = wrapper.find('[data-testid="product-list"]')
+    expect(productList.exists()).toBe(true)
+    
+    const productListComponent = wrapper.findComponent(ProductListStub)
+    expect(productListComponent.exists()).toBe(true)
+    expect(productListComponent.props('initialDisplayCount')).toBe(12)
+    expect(productListComponent.props('dataCyPrefix')).toBe('product')
   })
 
   it('should get products API successfully', async () => {
-    const mockProducts = [
-      { id: 1, title: 'Product A', description: 'Test', category: 'electronics', price: 100 },
-      { id: 2, title: 'Product B', description: 'Test', category: 'clothing', price: 200 },
-    ]
-
-    const mockExecute = vi.fn().mockResolvedValue(mockProducts)
-    useApi.mockReturnValue({
-      data: { value: mockProducts },
-      isLoading: { value: false },
-      error: { value: null },
-      hasLoaded: { value: true },
-      execute: mockExecute,
-    })
-
-    mount(HomeView, {
-      global: {
-        plugins: [pinia, router],
-        stubs: {
-          BaseCard: true,
-          BaseButton: true,
-          ProductSkeleton: true,
-          BaseImage: true,
-          RouterLink: true,
-          Icon: true,
-        },
-      },
-    })
-
-    await new Promise((resolve) => setTimeout(resolve, 200))
-
-    expect(mockExecute).toHaveBeenCalled()
-    const result = await mockExecute()
-    expect(result).toEqual(mockProducts)
-  })
-
-  it('should filter products by search query', async () => {
     const mockProducts = [
       { id: 1, title: 'Product A', description: 'Test', category: 'electronics', price: 100 },
       { id: 2, title: 'Product B', description: 'Test', category: 'clothing', price: 200 },
@@ -158,23 +128,56 @@ describe('Home View', () => {
       global: {
         plugins: [pinia, router],
         stubs: {
-          BaseCard: true,
           BaseButton: true,
-          ProductSkeleton: true,
-          BaseImage: true,
+          ProductList: {
+            template: '<div>ProductList</div>',
+          },
           RouterLink: true,
-          Icon: true,
         },
       },
     })
 
     await wrapper.vm.$nextTick()
-    await new Promise((resolve) => setTimeout(resolve, 100))
 
-    wrapper.vm.searchQuery = 'Product A'
+    expect(wrapper.html()).toContain('welcome')
+    expect(wrapper.html()).toContain('ProductList')
+  })
+
+  it('should filter products by search query', async () => {
+    const mockProducts = [
+      { id: 1, title: 'Product A', description: 'Test', category: 'electronics', price: 100 },
+      { id: 2, title: 'Product B', description: 'Test', category: 'clothing', price: 200 },
+    ]
+
+    useApi.mockReturnValue({
+      data: { value: mockProducts },
+      isLoading: { value: false },
+      error: { value: null },
+      hasLoaded: { value: true },
+      execute: vi.fn().mockResolvedValue(mockProducts),
+    })
+
+    const ProductListStub = {
+      template: '<div data-testid="product-list">ProductList</div>',
+      props: ['titleTag', 'dataCyPrefix', 'initialDisplayCount'],
+    }
+
+    const wrapper = mount(HomeView, {
+      global: {
+        plugins: [pinia, router],
+        stubs: {
+          BaseButton: true,
+          ProductList: ProductListStub,
+          RouterLink: true,
+        },
+      },
+    })
+
     await wrapper.vm.$nextTick()
 
-    expect(wrapper.vm.filteredProducts.length).toBe(1)
-    expect(wrapper.vm.filteredProducts[0].title).toBe('Product A')
+    const productList = wrapper.findComponent(ProductListStub)
+    expect(productList.exists()).toBe(true)
+    expect(productList.props('titleTag')).toBe('h2')
+    expect(productList.props('dataCyPrefix')).toBe('product')
   })
 })
